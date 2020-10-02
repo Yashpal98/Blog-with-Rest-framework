@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} Blog - Home {% endblock title %}
+
+{% block blogActive %} active {% endblock blogActive %}
+
+{% block js %}
+<script>
+  Let previews = document.getElementsByClassName('preview');
+  Array.from(previews).forEach((element)=>{
+    element.innerHTML = element.innerTEXT;
+  })
+</script>
+{% endblock js %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<div class="container my-2">
+  <a role=" button" href="addpost/" class="btn btn-primary pull-right">Add blog</a>
+</div>
+{% endif %}
+<div class="container my-3">
+  <h2>Technical Articles by iCoder:</h2>
+  {% for post in allpost %}
+  <div class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 d-flex flex-column position-static">
+      <strong class="d-inline-block mb-2 text-primary">Article by {{ post.author }}</strong>
+      <h3 class="mb-0"><a class="text-dark" href="/blog/{{post.slug}}">{{post.title}}</a></h3>
+      <div class="mb-1 text-muted">{{post.timeStamp}}</div>
+      <p class="card-text mb-auto"><div class="preview">{{post.content|safe | truncatechars:350 }}</div></p>
+      <div>
+        <!-- slug is used for url and it is given in DB -->
+        <a role="button" href="/blog/{{post.slug}}" class="btn btn-primary">Continue reading</a>
+      </div>
+    </div>
+    <div class="col-auto d-none d-lg-block">
+      <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
+          dy=".3em">Thumbnail</text>
+      </svg>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock body %}

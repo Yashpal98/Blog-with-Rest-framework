@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Add blog {% endblock title %}
+
+{% block aboutActive %} active {% endblock aboutActive %}
+
+{% block js %}
+<script>
+var script = document.createElement('script');
+script.type = "text/javascript";
+script.src = "https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js";
+document.head.appendChild(script);
+
+script.onload = function(){
+  tinymce.init({
+    selector: '#content',
+    height: 456,
+    plugins: [
+      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'table emoticons template paste help'
+    ],
+    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+      'bullist numlist outdent indent | link image | print preview media fullpage | ' +
+      'forecolor backcolor emoticons | help',
+    menu: {
+      favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | spellchecker | emoticons' }
+    },
+    menubar: 'favs file edit view insert format tools table help',
+    content_css: 'css/content.css'
+  });
+}
+</script>
+{% endblock js %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h2 class="text-center">Post HERE </h2>
+      <h5 class="text-center">{{ user.first_name }} {{ user.last_name }} You can add your post here.</h5>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="title" class="col-sm-2 control-label">Title:</label>
+          <div class="col-sm-10">
+            <input type="text" name="title" id="title" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="content" class="col-sm-2">Enter your content:</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock body %}

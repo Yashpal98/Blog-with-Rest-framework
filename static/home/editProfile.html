@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Profile {% endblock title %}
+
+{% block aboutActive %} active {% endblock aboutActive %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h2 class="text-center">Edit HERE </h2>
+      <h5 class="text-center">{{ user.first_name }} {{ user.last_name }} You can edit your profile.</h5>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <center>
+            <img src="{{ user.userprofile.avatar.url }}" alt="User's PRofile" class="rounded-circle">
+          </center>
+        </div>
+        <div class="form-group">
+          <label for="" class="col-sm-2 control-label">Username:</label>
+
+          <div class="col-sm-10">
+            <input type="text" name="username" id="username" class="form-control" value="{{ user.username }}">
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label">First Name:</label>
+
+            <div class="col-sm-10">
+              <input type="text" name="fname" id="fname" class="form-control" value="{{ user.first_name }}">
+            </div>
+            <div class="form-group">
+              <label for="" class="col-sm-2 control-label">Last Name:</label>
+
+              <div class="col-sm-10">
+                <input type="text" name="lname" id="lname" class="form-control" value="{{ user.last_name }}">
+              </input>
+            </div>
+            <div class="form-group">
+              <label for="" class="col-sm-2 control-label">Email:</label>
+              <div class="col-sm-10">
+                <input type="email" name="email" id="email" class="form-control" value="{{ user.email }}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="" class="col-sm-2 control-label">Old Paswword:</label>
+              <div class="col-sm-10">
+                <input type="password" name="Oldpass" id="Oldpass" class="form-control"
+                  placeholder="Enter Old password ..." required>
+              </input>
+            </div>
+            <div class="form-group">
+              <label for="" class="col-sm-2 control-label">Password:</label>
+              <div class="col-sm-10">
+                <input type="password" name="pswd" id="pswd" class="form-control" placeholder="Enter Password ...">
+              </input>
+            </div>
+            <div class="form-group">
+              <label for="" class="col-sm-2 control-label">Confirm Password:</label>
+              <div class="col-sm-10">
+                <input type="password" name="c_pswd" id="c_pswd" class="form-control"
+                  placeholder="Re-enter Password ...">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      <!-- Button Delete trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Delete
+      </button>
+
+      <!-- Delete Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><b>Delete Account</b></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure. Yoy want to delete your account. </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <a href="/delete/{{ user.id }}" role="button" class="btn btn-primary">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

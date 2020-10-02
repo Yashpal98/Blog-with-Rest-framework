@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load extras %}
+
+{% block title %} Blog Post {% endblock title %}
+
+{% block body %}
+
+<div class="container my-3">
+  <h2 class="blog-post-title">{{post.title}}</h2>
+
+  {% if user.is_authenticated %}
+
+  {% ifequal username post.author %}
+  <!-- Button Delete trigger modal -->
+  <div style="width:72px;float: right;margin-right:0px;">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletePost">
+      Delete
+    </button>
+  </div>
+  <!-- Button Edit trigger modal -->
+  <div style="width:55px;float:right;">
+    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPost">
+      Edit
+    </button>-->
+    <a role="button" href="/blog/editPost/{{post.slug}}" class="btn btn-primary">Edit</a>
+  </div>
+  {% endifequal %}
+  {% endif %}
+
+  <p class="blog-post-meta">{{post.timeStamp}} by <a href="/about"> {{post.author}}</a>
+  &nbsp;<span>({{ post.views }} views)</span>
+  </p>
+
+  <p>{{post.content|safe}}</p>
+  <hr>
+</div>
+
+<!-- Comments -->
+<div class="container">
+  <div class="jumbotron">
+    <h2>Comments({{ comments.count }})</h2>
+    {% if user.is_authenticated %}
+    <form action="/blog/postComment/" method="post">
+      {% csrf_token %}
+      <input type="text" class="form-control" name="comment" placeholder="Enter your comment here..">
+      <input type="hidden" name="postsno" value="{{ post.sno }}">
+      <input type="hidden" name="parentSno" value="">
+      <button type="submit" class="btn btn-primary my-2">Submit</button>
+    </form>
+    {% else %}
+    <p>Please login to post comment</p>
+    {% endif %}
+    {% for comment in comments %}
+    <div class="row my-4">
+      <div class="col-md-1">
+        <img src="{{ comment.user.userprofile.avatar.url }}" alt="Missing User profile image" class="rounded-circle"
+          onerror="this.src='{{ MEDIA_URL }}User-Profile/index.png';" width="50px" height="50px">
+      </div>
+      <div class="col-md-11">
+        <b>{{ comment.user.username }}</b> <small
+          class="badge badge-secondary">{{ comment.timeStamp | naturaltime}}</small>
+        <div>{{ comment.comment }}</div>
+        <!-- Reply Comment -->
+        <div class="replyBox mx-0">
+        {% if user.is_authenticated %}
+        <!-- Button to trigger reply comment modal -->
+          <a class="text-secondary" data-toggle="collapse" href="#replyBox{{ comment.sno }}" role="button"
+            aria-expanded="false" aria-controls="replyBox{{ comment.sno }}">
+            <small>Reply</small>
+          </a>&nbsp;
+          {% ifequal username comment.user %}
+          <!-- Button to trigger edit comment modal -->
+          <a class="text-secondary" data-toggle="collapse" href="#edit{{ comment.sno }}" role="button"
+            aria-expanded="false" aria-controls="edit{{ comment.sno }}">
+            <small>Edit</small>
+          </a>&nbsp;
+          <!-- Button to trigger delete comment modal -->
+          <a class="text-secondary" data-toggle="collapse" href="#delete{{ comment.sno }}" role="button"
+            aria-expanded="false" aria-controls="delete{{ comment.sno }}">
+            <small>Delete</small>
+          </a>
+          {% endifequal %}
+           <!-- Comment reply Modal -->
+          <div class="collapse" id="replyBox{{ comment.sno }}">
+            <div class="card card-body my-2">
+              <form action="/blog/postComment/" method="post">
+                {% csrf_token %}
+                <input type="text" class="form-control" name="comment" placeholder="Enter your reply here..">
+                <input type="hidden" name="parentSno" value="{{ comment.sno }}">
+                <input type="hidden" name="postsno" value="{{ post.sno }}">
+                <button type="submit" class="btn btn-primary my-2">Reply</button>
+              </form>
+            </div>
+          </div>
+          <!-- Comment Edit Modal -->
+          <div class="collapse" id="edit{{ comment.sno }}">
+            <div class="card card-body my-2">
+              <form method="post" action="/blog/editComment/">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="comment" placeholder="Enter your comment here.."
+                      value="{{ comment.comment }}">
+                    <input type="hidden" name="commentsno" value="{{ comment.sno }}">
+                    <input type="hidden" name="postsno" value="{{ post.sno }}">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
+            </div>
+          </div>
+          <!-- Comment Delete Modal -->
+          <div class="collapse" id="delete{{ comment.sno }}">
+            <div class="card card-body my-2">
+                <p><b>{{ comment.user.username }}</b> are you sure. You want to delete your Comment. </p>
+                <div>
+                <a href="/blog/deleteComment/{{ comment.sno }}" role="button" class="btn btn-primary">Delete</a>
+                </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Replies -->
+          <div class="replies my-2">
+            {% for reply in replyDict|get_val:comment.sno %}
+            <div class="row my-3">
+              <div class="col-md-1">
+                <img src="{{ reply.user.userprofile.avatar.url }}" alt="Missing User profile image"
+                  class="rounded-circle" onerror="this.src='{{ MEDIA_URL }}User-Profile/index.png';" width="50px"
+                  height="50px">
+              </div>
+              <div class="col-md-11">
+                <b>{{ reply.user.username }}</b> <small class="badge badge-secondary">{{ reply.timeStamp | naturaltime}}</small>
+                <div>{{ reply.comment }}</div>
+                {% if user.is_authenticated %}
+                {% ifequal username reply.user %}
+                <!-- Button to trigger edit reply modal -->
+          <a class="text-secondary" data-toggle="collapse" href="#editreply{{ reply.sno }}" role="button"
+            aria-expanded="false" aria-controls="editreply{{ reply.sno }}">
+            <small>Edit</small>
+          </a>&nbsp;
+          <!-- Button to trigger delete reply modal -->
+          <a class="text-secondary" data-toggle="collapse" href="#deletereply{{ reply.sno }}" role="button"
+            aria-expanded="false" aria-controls="deletereply{{ reply.sno }}">
+            <small>Delete</small>
+          </a>
+          {% endifequal %}
+          <!-- Reply Edit Modal -->
+          <div class="collapse" id="editreply{{ reply.sno }}">
+            <div class="card card-body my-2">
+              <form method="post" action="/blog/editComment/">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="comment" placeholder="Enter your comment here.."
+                      value="{{ reply.comment }}">
+                    <input type="hidden" name="commentsno" value="{{ reply.sno }}">
+                    <input type="hidden" name="postsno" value="{{ post.sno }}">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
+            </div>
+          </div>
+          <!-- Reply Delete Modal -->
+          <div class="collapse" id="deletereply{{ reply.sno }}">
+            <div class="card card-body my-2">
+                <p><b>{{ reply.user.username }}</b> are you sure. You want to delete your Comment. </p>
+                <div>
+                <a href="/blog/deleteComment/{{ reply.sno }}" role="button" class="btn btn-primary">Delete</a>
+                </div>
+            </div>
+          </div>
+          {% endif %}
+              </div>
+            </div>
+            
+            {% endfor %}
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- Post Edit Modal -->
+<!--<div class="modal fade" id="editPost" tabindex="-1" role="dialog" aria-labelledby="editPost" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editPost">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/blog/editPost/">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="title" class="control-label">Title:</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{post.title}}">
+            <input type="hidden" name="number" value="{{post.sno}}">
+          </div>
+          <div class="form-group">
+            <label for="content">Enter your content:</label>
+            <textarea class="form-control" id="content" name="content" rows="3">{{post.content}}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+<!-- Post Delete Modal -->
+<div class="modal fade" id="deletePost" tabindex="-1" role="dialog" aria-labelledby="deletePost" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletePost"><b>Delete Post</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure. You want to delete your Post. </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/blog/deletePost/{{ post.sno }}" role="button" class="btn btn-primary">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

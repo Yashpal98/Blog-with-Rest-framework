@@ -1,0 +1,8 @@
+django==3.0
+pillow==7.0
+djangorestframework
+
+# Httpie used for test our api
+httpie(optional)
+
+Tiny rich text editor

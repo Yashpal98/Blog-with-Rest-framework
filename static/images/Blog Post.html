@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="gr__localhost" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="Blog%20Post_files/bootstrap.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title> Blog Post </title>
+  
+  </head>
+
+  <body data-gr-c-s-loaded="true" class="modal-open">
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="http://localhost:8000/">Icoder</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item  ">
+              <a class="nav-link" href="http://localhost:8000/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item  ">
+              <a class="nav-link" href="http://localhost:8000/blog">Blog</a>
+            </li>
+            <li class="nav-item  ">
+              <a class="nav-link" href="http://localhost:8000/contact">Contact</a>
+            </li>
+            <li class="nav-item  ">
+              <a class="nav-link" href="http://localhost:8000/about">About</a>
+            </li>
+          </ul>
+          </div>
+          
+          <div class="form-inline ml-auto">
+            <form method="get" action="/search/" class="my-2 my-lg-0">
+              <input class="form-control mr-sm-2" name="query" id="query" type="search" placeholder="Search">
+              <button class="btn btn-outline-primary my-2 mr-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Welcome <b>ankit12</b>
+                </a>
+                <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="Blog%20Post_files/d7e4b70a083aacb9333eb098b9f36817_K975yIi.jpg" class="dropdown-item img-circle" onerror="this.src='/media/User-Profile/index.png';" alt="Missing User profile image">
+                <p align="center">Ankit
+                kumar</p>
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer my-2">
+              <div style="display: inline-flex !important;">
+                <div class="pull-left ml-2">
+                  <a href="http://localhost:8000/edit/22" class="btn btn-primary btn-flat">Edit</a>
+                </div>
+                <div class="pull-right ml-2">
+                  <a href="http://localhost:8000/logout" class="btn btn-primary ml-2">Signout</a>
+                </div>
+                </div>
+              </li>
+            </ul>
+              </li>
+            </ul>
+
+            
+          </div>
+    
+
+        </nav></div>
+      
+    
+
+    
+    <div class="container-fluid">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>message: </strong> Your blog has been updated successfully.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    </div>
+    
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signupModal">SignUp</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/signup/" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="csrfmiddlewaretoken" value="HTzsmmNxPWKLczXTJLInI9WMYYhLOAGeBg5S5wYeooS4B6ugtsWEBeyV3nk3KOFH">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter a Unique username" required="">
+              </div>
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter your first name" required="">
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter your last name" required="">
+              </div>
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required="">
+              </div>
+              <div class="form-group">
+                <label for="email">Password</label>
+                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Password" required="">
+              </div>
+              <div class="form-group">
+                <label for="email">Confirm Password</label>
+                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Re-Enter Password" required="">
+              </div>
+              <div class="form-group">
+    <label for="userprofile">Choose your profile</label>
+    <input type="file" class="form-control" id="userprofile" name="userprofile" accept="image/*">
+  </div>
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModal">LogIn</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/login/" method="post">
+              <input type="hidden" name="csrfmiddlewaretoken" value="HTzsmmNxPWKLczXTJLInI9WMYYhLOAGeBg5S5wYeooS4B6ugtsWEBeyV3nk3KOFH">
+              <div class="form-group">
+                <label for="loginusername">Username</label>
+                <input type="text" class="form-control" id="loginusername" name="loginusername" required="">
+              </div>
+              <div class="form-group">
+                <label for="loginpass">Password</label>
+                <input type="password" class="form-control" id="loginpass" name="loginpass" required="">
+              </div>
+
+              <!-- Button to trigger forget modal -->
+            <a href="#" data-toggle="modal" data-target="#forgetModal" style="float: right;">
+              Forget password
+            </a>
+              <button type="submit" class="form-control btn btn-primary my-3">Login</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Forget Modal -->
+    <div class="modal fade" id="forgetModal" tabindex="-1" role="dialog" aria-labelledby="forgetModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="forgetModal">Forget password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/forget/" method="post">
+              <input type="hidden" name="csrfmiddlewaretoken" value="HTzsmmNxPWKLczXTJLInI9WMYYhLOAGeBg5S5wYeooS4B6ugtsWEBeyV3nk3KOFH">
+              <div class="form-group">
+                <label for="forgetusername">Username</label>
+                <input type="text" class="form-control" id="forgetusername" name="forgetusername" placeholder="Enter your username..." required="">
+              </div>
+              <div class="form-group">
+                <label for="forgetfname">First name</label>
+                <input type="text" class="form-control" id="forgetfname" name="forgetfname" placeholder="Enter your first name..." required="">
+              </div>
+              <div class="form-group">
+                <label for="forgetemail">Email</label>
+                <input type="email" class="form-control" id="forgetemail" name="forgetemail" placeholder="Enter your email..." required="">
+              </div>
+              <button type="submit" class="form-control btn btn-primary my-3">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+<div class="container my-3">
+
+  <h2 class="blog-post-title">my Introduction by myself</h2>
+
+  
+  <!-- Button Edit trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit" style="float: right;">
+  Edit
+</button>
+
+  <p class="blog-post-meta">April 24, 2020, 5:18 a.m. by <a href="http://localhost:8000/about"> ankit12</a></p>
+
+  <p>My name is ankit kumar yash</p>
+  <hr>
+</div>
+<div class="container">
+  <div class="jumbotron">
+    <h2>Comments</h2>
+    
+    <form action="/blog/postComment/" method="post">
+      <input type="hidden" name="csrfmiddlewaretoken" value="HTzsmmNxPWKLczXTJLInI9WMYYhLOAGeBg5S5wYeooS4B6ugtsWEBeyV3nk3KOFH">
+      <input type="text" class="form-control" name="comment" placeholder="Enter your comment here..">
+      <input type="hidden" name="postsno" value="4">
+      <button type="submit" class="btn btn-primary my-2">Submit</button>
+    </form>
+    
+    
+  </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade show" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" style="display: block;" aria-modal="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="edit">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body"><grammarly-extension style="position: absolute; top: 0px; left: 0px; pointer-events: none;" class="_1KJtL"><div data-grammarly-part="highlights" class="u_fNK" style="position: absolute; top: 0px; left: 0px;"><div style="box-sizing: content-box; top: 134px; left: 16px; width: 465px; height: 101px; position: relative; pointer-events: none; overflow: hidden; border: 0px none; border-radius: 0px; padding: 0px; margin: 0px;"><div style="position: absolute; top: 0px; left: 0px;"><div style="height: 796px; width: 1760px;"><div><div style="top: 7.33333px; left: 97.2667px; width: 34.4333px; height: 21.3333px;" class="_3F-Wk _3mEyK _2Qe2S"></div><div style="top: 7.33333px; left: 136.083px; width: 44.4833px; height: 21.3333px;" class="_3F-Wk _3mEyK _2Qe2S"></div></div><div></div></div></div></div></div><div data-grammarly-part="button" class="u_fNK" style="position: absolute; top: 0px; left: 0px;"><div style="box-sizing: content-box; top: 134px; left: 16px; width: 465px; height: 101px; position: relative; pointer-events: none; overflow: hidden; border: 0px none; border-radius: 0px; padding: 0px; margin: 0px;"><div style="position: absolute; transform: translate(-100%, -100%); top: 93px; left: 453px; width: auto; height: auto; pointer-events: all;"><div style="flex-direction: row; display: flex;"><div style="position: relative;"></div><div><div class="_5WizN _1y8ub _34Jb6 _1QzSN"><div class="_3YmQx"><div title="Found 2 errors in text" class="_3QdKe">2</div></div></div></div></div></div></div></div></grammarly-extension>
+        <form method="post" action="/blog/editPost/">
+        <input type="hidden" name="csrfmiddlewaretoken" value="HTzsmmNxPWKLczXTJLInI9WMYYhLOAGeBg5S5wYeooS4B6ugtsWEBeyV3nk3KOFH">
+        <div class="form-group">
+          <label for="title" class="control-label">Title:</label>
+            <input type="text" name="title" id="title" class="form-control" value="my Introduction">
+            <input type="hidden" name="number" value="4">
+        </div>
+        <div class="form-group">
+          <label for="content">Enter your content:</label>
+            <textarea class="form-control" id="content" name="content" rows="3" spellcheck="false">My name is ankit kumar</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Edit</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="Blog%20Post_files/jquery-3.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="Blog%20Post_files/popper.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="Blog%20Post_files/bootstrap.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+
+<div class="modal-backdrop fade show"></div></body><grammarly-inline-cards class="_1KJtL"><div></div></grammarly-inline-cards><grammarly-popups class="_1KJtL"><div></div></grammarly-popups><div class="_1KJtL"><div class="gr_-editor gr-iframe-first-load" style="display: none;"><div class="gr_-editor_back"></div><iframe class="gr_-ifr gr-_dialog-content"></iframe></div></div><grammarly-card class="_1KJtL" style=""><div></div></grammarly-card><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span><grammarly-mirror><div style="border: 0px none transparent; margin: 0px; padding: 6px 12px; font-size: 16px; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-weight: 400; font-size-adjust: none; font-style: normal; direction: ltr; text-align: left; text-shadow: none; text-indent: 0px; line-height: 24px; letter-spacing: normal; word-break: normal; overflow-wrap: break-word; word-spacing: 0px; writing-mode: horizontal-tb; white-space: pre-wrap; vertical-align: text-bottom; clear: none; box-sizing: content-box; width: 441px; height: 89px; position: fixed; top: 0px; left: 0px; background: transparent none repeat scroll 0% 0%; pointer-events: none; overflow: hidden; color: transparent; z-index: -2147483648; visibility: hidden;">My name is ankit kumar
+</div></grammarly-mirror></html>
